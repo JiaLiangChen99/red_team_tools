@@ -1,0 +1,1 @@
+python-windows\python.exe  main.py
