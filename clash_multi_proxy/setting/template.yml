@@ -1,0 +1,21 @@
+mixed-port: 7899
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+dns:
+    enable: true
+    ipv6: true
+    default-nameserver: [223.5.5.5, 119.29.29.29, 8.8.8.8]
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    use-hosts: true
+    nameserver: ['https://doh.pub/dns-query', 'https://dns.alidns.com/dns-query']
+    fallback: ['https://doh.dns.sb/dns-query', 'https://dns.cloudflare.com/dns-query', 'https://dns.twnic.tw/dns-query', 'tls://8.8.4.4:853']
+    fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
+proxies:
+    - { name: '🇺🇸 美国 US-01', type: trojan, server: nbaqz0v1meo0k3d-us.fcnode.net, port: 53551, password: 2bdbbe14-a194-4d76-bc40-3457c442ef88, udp: true, skip-cert-verify: true }
+proxy-groups:
+    - { name: 代理分发, type: select, proxies: ['🇺🇸 美国 US-01'],url: 'http://www.gstatic.com/generate_204', interval: 86400}
+rules:
+    - 'MATCH,代理分发'
